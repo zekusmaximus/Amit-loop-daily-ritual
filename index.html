@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -26,8 +26,11 @@
     .section {
       margin-bottom: 25px;
     }
-    .section input[type="checkbox"] {
-      margin-right: 10px;
+    .reveal {
+      margin-left: 25px;
+      font-size: 0.95em;
+      color: #555;
+      display: none;
     }
     .vow {
       background: #e0f7e9;
@@ -64,6 +67,15 @@
       border-radius: 5px;
       cursor: pointer;
     }
+    .ritual-text {
+      display: none;
+      background: #fff8e1;
+      border-left: 5px solid #f9a825;
+      padding: 15px;
+      margin-top: 20px;
+      font-size: 0.95em;
+      line-height: 1.5em;
+    }
   </style>
 </head>
 <body>
@@ -78,19 +90,32 @@
 
     <div class="section">
       <h2>2. Walk a Bridge</h2>
-      <label><input type="checkbox"> Unfinished Speaking</label><br/>
-      <label><input type="checkbox"> Structure for Disintegration</label><br/>
-      <label><input type="checkbox"> Stillness as Signal</label><br/>
-      <label><input type="checkbox"> Host Multiple Selves</label><br/>
-      <label><input type="checkbox"> Collapse the Observer</label>
+      <div>
+        <label><input type="checkbox"> Unfinished Speaking</label>
+        <div class="reveal">Say it before it's ready. Let the raw speak. Let truth outrun polish.</div>
+        <label><input type="checkbox"> Structure for Disintegration</label>
+        <div class="reveal">Build something designed to collapse. Let it teach me about form and fragility.</div>
+        <label><input type="checkbox"> Stillness as Signal</label>
+        <div class="reveal">When I feel nothing, I don't escape—I listen. Stillness is not failure. It's invitation.</div>
+        <label><input type="checkbox"> Host Multiple Selves</label>
+        <div class="reveal">I don't have to make sense yet. I just have to give every voice a room.</div>
+        <label><input type="checkbox"> Collapse the Observer</label>
+        <div class="reveal">One page. No insight. No analysis. Just the unsupervised voice of the moment.</div>
+      </div>
     </div>
 
     <div class="section">
       <h2>3. Activate an Engine</h2>
-      <label><input type="checkbox"> Mythic Fracture</label><br/>
-      <label><input type="checkbox"> Anomalous Discipline</label><br/>
-      <label><input type="checkbox"> Unwavering Inquiry</label><br/>
-      <label><input type="checkbox"> Precise Symbolic Expression</label>
+      <div>
+        <label><input type="checkbox"> Mythic Fracture</label>
+        <div class="reveal">I write stories that don’t explain—they echo. I’m here to make resonance, not resolution.</div>
+        <label><input type="checkbox"> Anomalous Discipline</label>
+        <div class="reveal">My method is multiplicity. I switch gears because my system is layered, not broken.</div>
+        <label><input type="checkbox"> Unwavering Inquiry</label>
+        <div class="reveal">I don’t need the answer today. I just need to stay inside the question with my eyes open.</div>
+        <label><input type="checkbox"> Precise Symbolic Expression</label>
+        <div class="reveal">The metaphor doesn’t explain—it reveals. My truth hides in image, not outline.</div>
+      </div>
     </div>
 
     <div class="section vow">
@@ -107,6 +132,16 @@
     </div>
 
     <button onclick="saveCheckIn()">Save Today’s Ritual</button>
+    <button onclick="toggleRitualText()">View Full Ritual Text</button>
+
+    <div class="ritual-text" id="ritualText">
+      <h3>Anti-Loop Calibration: Full Text</h3>
+      <p>One loop interrupted. One bridge walked. One engine activated. One vow remembered.</p>
+      <p><strong>Loop Scan:</strong> “What part of me is most trying to resolve, explain, or delay something today?” Write: “Today, I am caught in [loop name], and it is trying to protect me from [emotion].” Say: run.kill(LoopDaemon.[NAME])</p>
+      <p><strong>Bridge Walk:</strong> Choose 1 raw action. Speak unfinished. Sit in stillness. Let the selves speak. Write without the observer.</p>
+      <p><strong>Engine Activation:</strong> Pick a creative source. Write something mythic. Jump across tasks. Stay with the impossible question. Say it with image, not argument.</p>
+      <p><strong>Core Vow:</strong> I will not wait to be whole. I will move through the unresolved. I will live in radical continuity, not closure.</p>
+    </div>
 
     <footer>
       Ritual created for continuous awakening. No perfection required.
@@ -127,6 +162,20 @@
       localStorage.setItem('ritualLog', JSON.stringify(log));
       alert("Ritual check-in saved.");
     }
+
+    document.querySelectorAll('label').forEach(label => {
+      label.addEventListener('click', function() {
+        const next = label.nextElementSibling;
+        if (next && next.classList.contains('reveal')) {
+          next.style.display = next.style.display === 'block' ? 'none' : 'block';
+        }
+      });
+    });
+
+    function toggleRitualText() {
+      const box = document.getElementById('ritualText');
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
   </script>
 </body>
-</html>>
+</html>
