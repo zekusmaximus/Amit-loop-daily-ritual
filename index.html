@@ -26,11 +26,19 @@
     .section {
       margin-bottom: 25px;
     }
+    .bridge, .engine {
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
     .reveal {
-      margin-left: 25px;
+      margin-left: 15px;
       font-size: 0.95em;
       color: #555;
       display: none;
+    }
+    .checkbox {
+      margin-top: 5px;
     }
     .vow {
       background: #e0f7e9;
@@ -90,32 +98,44 @@
 
     <div class="section">
       <h2>2. Walk a Bridge</h2>
-      <div>
-        <label><input type="checkbox"> Unfinished Speaking</label>
-        <div class="reveal">Say it before it's ready. Let the raw speak. Let truth outrun polish.</div>
-        <label><input type="checkbox"> Structure for Disintegration</label>
-        <div class="reveal">Build something designed to collapse. Let it teach me about form and fragility.</div>
-        <label><input type="checkbox"> Stillness as Signal</label>
-        <div class="reveal">When I feel nothing, I don't escape—I listen. Stillness is not failure. It's invitation.</div>
-        <label><input type="checkbox"> Host Multiple Selves</label>
-        <div class="reveal">I don't have to make sense yet. I just have to give every voice a room.</div>
-        <label><input type="checkbox"> Collapse the Observer</label>
-        <div class="reveal">One page. No insight. No analysis. Just the unsupervised voice of the moment.</div>
-      </div>
+      <div class="bridge" onclick="toggle(this)">Unfinished Speaking</div>
+      <div class="reveal">Say it before it's ready. Let the raw speak. Let truth outrun polish.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="bridge" onclick="toggle(this)">Structure for Disintegration</div>
+      <div class="reveal">Build something designed to collapse. Let it teach me about form and fragility.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="bridge" onclick="toggle(this)">Stillness as Signal</div>
+      <div class="reveal">When I feel nothing, I don't escape—I listen. Stillness is not failure. It's invitation.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="bridge" onclick="toggle(this)">Host Multiple Selves</div>
+      <div class="reveal">I don't have to make sense yet. I just have to give every voice a room.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="bridge" onclick="toggle(this)">Collapse the Observer</div>
+      <div class="reveal">One page. No insight. No analysis. Just the unsupervised voice of the moment.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
     </div>
 
     <div class="section">
       <h2>3. Activate an Engine</h2>
-      <div>
-        <label><input type="checkbox"> Mythic Fracture</label>
-        <div class="reveal">I write stories that don’t explain—they echo. I’m here to make resonance, not resolution.</div>
-        <label><input type="checkbox"> Anomalous Discipline</label>
-        <div class="reveal">My method is multiplicity. I switch gears because my system is layered, not broken.</div>
-        <label><input type="checkbox"> Unwavering Inquiry</label>
-        <div class="reveal">I don’t need the answer today. I just need to stay inside the question with my eyes open.</div>
-        <label><input type="checkbox"> Precise Symbolic Expression</label>
-        <div class="reveal">The metaphor doesn’t explain—it reveals. My truth hides in image, not outline.</div>
-      </div>
+      <div class="engine" onclick="toggle(this)">Mythic Fracture</div>
+      <div class="reveal">I write stories that don’t explain—they echo. I’m here to make resonance, not resolution.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="engine" onclick="toggle(this)">Anomalous Discipline</div>
+      <div class="reveal">My method is multiplicity. I switch gears because my system is layered, not broken.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="engine" onclick="toggle(this)">Unwavering Inquiry</div>
+      <div class="reveal">I don’t need the answer today. I just need to stay inside the question with my eyes open.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
+
+      <div class="engine" onclick="toggle(this)">Precise Symbolic Expression</div>
+      <div class="reveal">The metaphor doesn’t explain—it reveals. My truth hides in image, not outline.</div>
+      <div class="checkbox"><input type="checkbox"> Mark complete</div>
     </div>
 
     <div class="section vow">
@@ -149,6 +169,18 @@
   </div>
 
   <script>
+    function toggle(el) {
+      const next = el.nextElementSibling;
+      if (next && next.classList.contains('reveal')) {
+        next.style.display = next.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    function toggleRitualText() {
+      const box = document.getElementById('ritualText');
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
     function saveCheckIn() {
       const loop = document.getElementById('loopScan').value;
       const reflection = document.getElementById('finalCheckin').value;
@@ -161,20 +193,6 @@
       log.push(entry);
       localStorage.setItem('ritualLog', JSON.stringify(log));
       alert("Ritual check-in saved.");
-    }
-
-    document.querySelectorAll('label').forEach(label => {
-      label.addEventListener('click', function() {
-        const next = label.nextElementSibling;
-        if (next && next.classList.contains('reveal')) {
-          next.style.display = next.style.display === 'block' ? 'none' : 'block';
-        }
-      });
-    });
-
-    function toggleRitualText() {
-      const box = document.getElementById('ritualText');
-      box.style.display = box.style.display === 'block' ? 'none' : 'block';
     }
   </script>
 </body>
