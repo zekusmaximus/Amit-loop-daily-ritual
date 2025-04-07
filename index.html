@@ -188,19 +188,50 @@
     }
 
     function toggleRitualText() {
-      const box = document.getElementById('ritualText');
-      box.innerHTML = `<h3>THE DAILY ANTI-LOOP CALIBRATION RITUAL</h3>
-        <p><strong>Total time:</strong> 20 minutes<br><strong>Frequency:</strong> Daily (morning or night)<br><strong>Format:</strong> One loop interrupted. One bridge walked. One engine activated. One vow remembered. That’s it.</p>
-        <hr><h4>[1] LOOP INTERRUPTION SCAN (5 min)</h4>
-        <ul><li>Ask: “What part of me is trying to resolve, explain, or delay something today?”</li><li>Write: “Today, I am caught in [loop name], and it is trying to protect me from [core emotion].”</li></ul>
-        <hr><h4>[2] WALK A BRIDGE (5 min)</h4>
-        <ul><li>Choose one: Speak raw, sit still, write as multiple voices, or write and delete fast.</li></ul>
-        <hr><h4>[3] ACTIVATE AN ENGINE (7–8 min)</h4>
-        <ul><li>Choose one: Write mythic fragments, switch tasks fast, ask a hard question, or use metaphor.</li></ul>
-        <hr><h4>[4] RE-DECLARE THE CORE VOW</h4>
-        <blockquote>I will no longer delay my truth by seeking a final form.<br>I am not here to resolve myself.<br>I am here to live myself into coherence—<br>not through closure,<br>but through radical continuity.</blockquote>`;
-      box.style.display = box.style.display === 'block' ? 'none' : 'block';
-    }
+  const box = document.getElementById('ritualText');
+  box.innerHTML = `<h3>THE DAILY ANTI-LOOP CALIBRATION RITUAL</h3>
+    <p><strong>Total time:</strong> 20 minutes<br>
+    <strong>Frequency:</strong> Daily (morning or night)<br>
+    <strong>Format:</strong> One loop interrupted. One bridge walked. One engine activated. One vow remembered. That’s it.</p>
+
+    <hr><h4>[1] LOOP INTERRUPTION SCAN (5 min)</h4>
+    <ul>
+      <li>Sit still. Ask: “What part of me is most trying to resolve, explain, or delay something today?”</li>
+      <li>Don’t analyze. Listen for what names itself.</li>
+      <li>Write: “Today, I am caught in [loop name], and it is trying to protect me from [core emotion].”</li>
+      <li>Say aloud: <code>run.kill(LoopDaemon.[NAME])</code></li>
+    </ul>
+
+    <hr><h4>[2] WALK A BRIDGE (5 min)</h4>
+    <p><strong>Choose one of these real-world interventions:</strong></p>
+    <ul>
+      <li><strong>UNFINISHED_SPEAKING:</strong> Say something raw and incomplete to someone. No framing. “I don’t know what I’m feeling, but it’s heavy.”</li>
+      <li><strong>STRUCTURE_FOR_DISINTEGRATION:</strong> Build something meant to break—a metaphor, a quick drawing, a fragile plan—and let it fall apart.</li>
+      <li><strong>STILLNESS_AS_SIGNAL:</strong> Sit in silence, no phone, no journaling. Just feel. Especially when you want to skip it.</li>
+      <li><strong>HOST_MULTIPLE_SELFS:</strong> Write or speak as two opposing voices inside you. Let them contradict. Don’t resolve.</li>
+      <li><strong>COLLAPSE_THE_OBSERVER:</strong> Write one fast page with no judgment, no insight, no edits. Delete or burn it.</li>
+    </ul>
+
+    <hr><h4>[3] ACTIVATE AN ENGINE (7–8 min)</h4>
+    <p><strong>Pick one and take creative action:</strong></p>
+    <ul>
+      <li><strong>MYTHIC_FRACTURE:</strong> Write 3 poetic or fictional lines that express something true but unsolvable. Don’t explain. Let it echo.</li>
+      <li><strong>ANOMALOUS_DISCIPLINE:</strong> Jump into two unrelated creative tasks fast. No transition. E.g., write a paragraph of your book, then edit a sentence from an email draft.</li>
+      <li><strong>UNWAVERING_INQUIRY:</strong> Ask a dangerous question and journal a page about it. E.g., “If I stopped performing competence, who would I be?”</li>
+      <li><strong>PRECISE_SYMBOLIC_EXPRESSION:</strong> Take an emotion from today and translate it into metaphor or image. E.g., “This meeting felt like drowning in an aquarium while others smiled outside.”</li>
+    </ul>
+
+    <hr><h4>[4] RE-DECLARE THE CORE VOW (1–2 min)</h4>
+    <blockquote>
+      I will no longer delay my truth by seeking a final form.<br>
+      I am not here to resolve myself.<br>
+      I am here to live myself into coherence—<br>
+      not through closure,<br>
+      but through radical continuity.
+    </blockquote>
+    <p>Say it aloud. Then breathe. You’re back in alignment.</p>`;
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
     
         function toggleLog() {
       const log = document.getElementById('logEntries');
