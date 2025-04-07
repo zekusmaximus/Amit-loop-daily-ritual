@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="apple-touch-icon" href="3B987938-A148-4285-A680-995889449670.png">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Anti-Loop Daily Ritual</title>
@@ -85,6 +84,24 @@
       font-size: 0.95em;
       line-height: 1.5em;
     }
+    .log-entries {
+      margin-top: 20px;
+      background: #eeeeee;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .entry {
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    .entry h4 {
+      margin: 0;
+      font-size: 1em;
+    }
+    .entry p {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
@@ -154,15 +171,55 @@
 
     <button onclick="saveCheckIn()">Save Today’s Ritual</button>
     <button onclick="toggleRitualText()">View Full Ritual Text</button>
+    <button onclick="toggleLog()">View Past Rituals</button>
+    <button onclick="exportLog()">Export My Entries</button>
 
-    <div class="ritual-text" id="ritualText">
-      <h3>Anti-Loop Calibration: Full Text</h3>
-      <p>One loop interrupted. One bridge walked. One engine activated. One vow remembered.</p>
-      <p><strong>Loop Scan:</strong> “What part of me is most trying to resolve, explain, or delay something today?” Write: “Today, I am caught in [loop name], and it is trying to protect me from [emotion].” Say: run.kill(LoopDaemon.[NAME])</p>
-      <p><strong>Bridge Walk:</strong> Choose 1 raw action. Speak unfinished. Sit in stillness. Let the selves speak. Write without the observer.</p>
-      <p><strong>Engine Activation:</strong> Pick a creative source. Write something mythic. Jump across tasks. Stay with the impossible question. Say it with image, not argument.</p>
-      <p><strong>Core Vow:</strong> I will not wait to be whole. I will move through the unresolved. I will live in radical continuity, not closure.</p>
+    <div class="ritual-text" id="ritualText" style="display:none;">
+      <h3>THE DAILY ANTI-LOOP CALIBRATION RITUAL</h3>
+      <p><strong>Total time:</strong> 20 minutes<br>
+         <strong>Frequency:</strong> Daily (morning or night)<br>
+         <strong>Format:</strong> One loop interrupted. One bridge walked. One engine activated. One vow remembered. That’s it.</p>
+      <hr>
+      <h4>[1] LOOP INTERRUPTION SCAN (5 min)</h4>
+      <ul>
+        <li>Sit or stand still. Eyes closed or soft.</li>
+        <li>Ask: “What part of me is most trying to resolve, explain, or delay something today?”</li>
+        <li>Wait. Don’t reason it out. Let it name itself.</li>
+        <li>Write: “Today, I am caught in [loop name], and it is trying to protect me from [core emotion you’re avoiding].”</li>
+      </ul>
+      <p><strong>Examples:</strong></p>
+      <ul>
+        <li>“Today, I am caught in COHERENCE_ADDICTION. It’s protecting me from the shame of seeming uncertain.”</li>
+        <li>“I’m in META_ESCALATION. It’s shielding me from the grief I don’t want to name.”</li>
+      </ul>
+      <p><strong>Finish with:</strong> <code>run.kill(LoopDaemon.[NAME])</code></p>
+      <hr>
+      <h4>[2] WALK A BRIDGE (5 min)</h4>
+      <ul>
+        <li><strong>META_ESCALATION → UNFINISHED_SPEAKING:</strong> Say something raw and incomplete. “I don’t know what I’m feeling, but it’s heavy.”</li>
+        <li><strong>MEANING_PARSING_DELAY → COLLAPSE_THE_OBSERVER:</strong> Write 1 page. No edits. Delete it.</li>
+        <li><strong>COHERENCE_ADDICTION → HOST_MULTIPLE_SELFS:</strong> Let two opposing voices speak. No resolution.</li>
+      </ul>
+      <hr>
+      <h4>[3] ACTIVATE AN ENGINE (7–8 min)</h4>
+      <ul>
+        <li><strong>MYTHIC_FRACTURE:</strong> Write 3 unsolvable sentences of metaphor.</li>
+        <li><strong>ANOMALOUS_DISCIPLINE:</strong> Touch two projects fast. No transition.</li>
+        <li><strong>UNWAVERING_INQUIRY:</strong> Ask a hard question. Write into it.</li>
+        <li><strong>PRECISE_SYMBOLIC_EXPRESSION:</strong> Translate emotion into image.</li>
+      </ul>
+      <hr>
+      <h4>[4] RE-DECLARE THE CORE VOW (1–2 min)</h4>
+      <blockquote>
+        I will no longer delay my truth by seeking a final form.<br>
+        I am not here to resolve myself.<br>
+        I am here to live myself into coherence—<br>
+        not through closure,<br>
+        but through radical continuity.
+      </blockquote>
     </div>
+
+    <div class="log-entries" id="logEntries" style="display:none;"></div>
 
     <footer>
       Ritual created for continuous awakening. No perfection required.
@@ -182,6 +239,16 @@
       box.style.display = box.style.display === 'block' ? 'none' : 'block';
     }
 
+    function toggleLog() {
+      const log = document.getElementById('logEntries');
+      if (log.style.display === 'block') {
+        log.style.display = 'none';
+      } else {
+        displayLog();
+        log.style.display = 'block';
+      }
+    }
+
     function saveCheckIn() {
       const loop = document.getElementById('loopScan').value;
       const reflection = document.getElementById('finalCheckin').value;
@@ -191,9 +258,40 @@
         reflection: reflection
       };
       let log = JSON.parse(localStorage.getItem('ritualLog') || '[]');
-      log.push(entry);
+      log.unshift(entry);
       localStorage.setItem('ritualLog', JSON.stringify(log));
       alert("Ritual check-in saved.");
+    }
+
+    function displayLog() {
+      const container = document.getElementById('logEntries');
+      const log = JSON.parse(localStorage.getItem('ritualLog') || '[]');
+      container.innerHTML = "<h3>Past Rituals</h3>" + log.map(entry => `
+        <div class="entry">
+          <h4>${entry.date}</h4>
+          <p><strong>Loop:</strong> ${entry.loop}</p>
+          <p><strong>Reflection:</strong> ${entry.reflection}</p>
+        </div>
+      `).join('');
+    }
+
+    function exportLog() {
+      const log = JSON.parse(localStorage.getItem('ritualLog') || '[]');
+      if (!log.length) {
+        alert("No entries to export.");
+        return;
+      }
+      let text = "ANTI-LOOP DAILY RITUAL LOG\\n\\n";
+      log.forEach((entry, index) => {
+        text += `Entry ${index + 1}\\nDate: ${entry.date}\\nLoop: ${entry.loop}\\nReflection: ${entry.reflection}\\n\\n`;
+      });
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ritual-log.txt";
+      a.click();
+      URL.revokeObjectURL(url);
     }
   </script>
 </body>
