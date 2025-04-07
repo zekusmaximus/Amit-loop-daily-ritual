@@ -107,13 +107,11 @@
 <body>
   <div class="container">
     <h1>Anti-Loop Daily Ritual</h1>
-
     <div class="section">
       <h2>1. Loop Interruption Scan</h2>
       <p>Ask: <em>"What part of me is trying to resolve, explain, or delay something today?"</em></p>
       <textarea id="loopScan" placeholder="Today I am caught in..."></textarea>
     </div>
-
     <div class="section">
       <h2>2. Walk a Bridge</h2>
       <div class="bridge" onclick="toggle(this)">Unfinished Speaking</div>
@@ -136,8 +134,7 @@
       <div class="reveal">One page. No insight. No analysis. Just the unsupervised voice of the moment.</div>
       <div class="checkbox"><input type="checkbox"> Mark complete</div>
     </div>
-
-    <div class="section">
+        <div class="section">
       <h2>3. Activate an Engine</h2>
       <div class="engine" onclick="toggle(this)">Mythic Fracture</div>
       <div class="reveal">I write stories that don’t explain—they echo. I’m here to make resonance, not resolution.</div>
@@ -174,51 +171,7 @@
     <button onclick="toggleLog()">View Past Rituals</button>
     <button onclick="exportLog()">Export My Entries</button>
 
-    <div class="ritual-text" id="ritualText" style="display:none;">
-      <h3>THE DAILY ANTI-LOOP CALIBRATION RITUAL</h3>
-      <p><strong>Total time:</strong> 20 minutes<br>
-         <strong>Frequency:</strong> Daily (morning or night)<br>
-         <strong>Format:</strong> One loop interrupted. One bridge walked. One engine activated. One vow remembered. That’s it.</p>
-      <hr>
-      <h4>[1] LOOP INTERRUPTION SCAN (5 min)</h4>
-      <ul>
-        <li>Sit or stand still. Eyes closed or soft.</li>
-        <li>Ask: “What part of me is most trying to resolve, explain, or delay something today?”</li>
-        <li>Wait. Don’t reason it out. Let it name itself.</li>
-        <li>Write: “Today, I am caught in [loop name], and it is trying to protect me from [core emotion you’re avoiding].”</li>
-      </ul>
-      <p><strong>Examples:</strong></p>
-      <ul>
-        <li>“Today, I am caught in COHERENCE_ADDICTION. It’s protecting me from the shame of seeming uncertain.”</li>
-        <li>“I’m in META_ESCALATION. It’s shielding me from the grief I don’t want to name.”</li>
-      </ul>
-      <p><strong>Finish with:</strong> <code>run.kill(LoopDaemon.[NAME])</code></p>
-      <hr>
-      <h4>[2] WALK A BRIDGE (5 min)</h4>
-      <ul>
-        <li><strong>META_ESCALATION → UNFINISHED_SPEAKING:</strong> Say something raw and incomplete. “I don’t know what I’m feeling, but it’s heavy.”</li>
-        <li><strong>MEANING_PARSING_DELAY → COLLAPSE_THE_OBSERVER:</strong> Write 1 page. No edits. Delete it.</li>
-        <li><strong>COHERENCE_ADDICTION → HOST_MULTIPLE_SELFS:</strong> Let two opposing voices speak. No resolution.</li>
-      </ul>
-      <hr>
-      <h4>[3] ACTIVATE AN ENGINE (7–8 min)</h4>
-      <ul>
-        <li><strong>MYTHIC_FRACTURE:</strong> Write 3 unsolvable sentences of metaphor.</li>
-        <li><strong>ANOMALOUS_DISCIPLINE:</strong> Touch two projects fast. No transition.</li>
-        <li><strong>UNWAVERING_INQUIRY:</strong> Ask a hard question. Write into it.</li>
-        <li><strong>PRECISE_SYMBOLIC_EXPRESSION:</strong> Translate emotion into image.</li>
-      </ul>
-      <hr>
-      <h4>[4] RE-DECLARE THE CORE VOW (1–2 min)</h4>
-      <blockquote>
-        I will no longer delay my truth by seeking a final form.<br>
-        I am not here to resolve myself.<br>
-        I am here to live myself into coherence—<br>
-        not through closure,<br>
-        but through radical continuity.
-      </blockquote>
-    </div>
-
+    <div class="ritual-text" id="ritualText" style="display:none;"></div>
     <div class="log-entries" id="logEntries" style="display:none;"></div>
 
     <footer>
@@ -236,10 +189,19 @@
 
     function toggleRitualText() {
       const box = document.getElementById('ritualText');
+      box.innerHTML = `<h3>THE DAILY ANTI-LOOP CALIBRATION RITUAL</h3>
+        <p><strong>Total time:</strong> 20 minutes<br><strong>Frequency:</strong> Daily (morning or night)<br><strong>Format:</strong> One loop interrupted. One bridge walked. One engine activated. One vow remembered. That’s it.</p>
+        <hr><h4>[1] LOOP INTERRUPTION SCAN (5 min)</h4>
+        <ul><li>Ask: “What part of me is trying to resolve, explain, or delay something today?”</li><li>Write: “Today, I am caught in [loop name], and it is trying to protect me from [core emotion].”</li></ul>
+        <hr><h4>[2] WALK A BRIDGE (5 min)</h4>
+        <ul><li>Choose one: Speak raw, sit still, write as multiple voices, or write and delete fast.</li></ul>
+        <hr><h4>[3] ACTIVATE AN ENGINE (7–8 min)</h4>
+        <ul><li>Choose one: Write mythic fragments, switch tasks fast, ask a hard question, or use metaphor.</li></ul>
+        <hr><h4>[4] RE-DECLARE THE CORE VOW</h4>
+        <blockquote>I will no longer delay my truth by seeking a final form.<br>I am not here to resolve myself.<br>I am here to live myself into coherence—<br>not through closure,<br>but through radical continuity.</blockquote>`;
       box.style.display = box.style.display === 'block' ? 'none' : 'block';
     }
-
-    function toggleLog() {
+        function toggleLog() {
       const log = document.getElementById('logEntries');
       if (log.style.display === 'block') {
         log.style.display = 'none';
@@ -252,11 +214,35 @@
     function saveCheckIn() {
       const loop = document.getElementById('loopScan').value;
       const reflection = document.getElementById('finalCheckin').value;
+
+      const bridgeLabels = [
+        "Unfinished Speaking", "Structure for Disintegration",
+        "Stillness as Signal", "Host Multiple Selves", "Collapse the Observer"
+      ];
+      const engineLabels = [
+        "Mythic Fracture", "Anomalous Discipline",
+        "Unwavering Inquiry", "Precise Symbolic Expression"
+      ];
+
+      const bridges = [];
+      const engines = [];
+
+      const checkboxes = document.querySelectorAll('.checkbox input');
+      checkboxes.forEach((box, i) => {
+        if (box.checked) {
+          if (i < 5) bridges.push(bridgeLabels[i]);
+          else engines.push(engineLabels[i - 5]);
+        }
+      });
+
       const entry = {
         date: new Date().toLocaleString(),
         loop: loop,
-        reflection: reflection
+        reflection: reflection,
+        bridges: bridges,
+        engines: engines
       };
+
       let log = JSON.parse(localStorage.getItem('ritualLog') || '[]');
       log.unshift(entry);
       localStorage.setItem('ritualLog', JSON.stringify(log));
@@ -271,6 +257,8 @@
           <h4>${entry.date}</h4>
           <p><strong>Loop:</strong> ${entry.loop}</p>
           <p><strong>Reflection:</strong> ${entry.reflection}</p>
+          ${entry.bridges?.length ? `<p><strong>Bridges Used:</strong> ${entry.bridges.join(", ")}</p>` : ""}
+          ${entry.engines?.length ? `<p><strong>Engines Activated:</strong> ${entry.engines.join(", ")}</p>` : ""}
         </div>
       `).join('');
     }
@@ -283,7 +271,10 @@
       }
       let text = "ANTI-LOOP DAILY RITUAL LOG\\n\\n";
       log.forEach((entry, index) => {
-        text += `Entry ${index + 1}\\nDate: ${entry.date}\\nLoop: ${entry.loop}\\nReflection: ${entry.reflection}\\n\\n`;
+        text += `Entry ${index + 1}\\nDate: ${entry.date}\\nLoop: ${entry.loop}\\nReflection: ${entry.reflection}\\n`;
+        if (entry.bridges?.length) text += `Bridges Used: ${entry.bridges.join(", ")}\\n`;
+        if (entry.engines?.length) text += `Engines Activated: ${entry.engines.join(", ")}\\n`;
+        text += `\\n`;
       });
       const blob = new Blob([text], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
