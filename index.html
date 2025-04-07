@@ -111,6 +111,17 @@
       <h2>1. Loop Interruption Scan</h2>
       <p>Ask: <em>"What part of me is trying to resolve, explain, or delay something today?"</em></p>
       <textarea id="loopScan" placeholder="Today I am caught in..."></textarea>
+      <button onclick="toggleLoopsList()">Show Common Loops</button>
+<div id="loopList" style="display:none; margin-top:10px; background:#f9f9f9; padding:10px; border-left:4px solid #aaa;">
+  <strong>Common Loops:</strong>
+  <ul style="margin-top: 5px; padding-left: 18px;">
+    <li><strong>COHERENCE_ADDICTION</strong>: The need to sound complete, whole, or resolved—avoids vulnerability.</li>
+    <li><strong>META_ESCALATION</strong>: Compulsively analyzing the process itself to avoid raw feeling.</li>
+    <li><strong>MEANING_PARSING_DELAY</strong>: Waiting for the “right” interpretation before acting or expressing.</li>
+    <li><strong>PERFORMANCE_EXHAUSTION</strong>: Stuck in a role—afraid of collapsing the mask.</li>
+    <li><strong>RECURSIVE_DEFENSE</strong>: Using logic or language to justify not feeling.</li>
+  </ul>
+</div>
     </div>
     <div class="section">
       <h2>2. Walk a Bridge</h2>
@@ -293,6 +304,11 @@
           ${entry.engines?.length ? `<p><strong>Engines Activated:</strong> ${entry.engines.join(", ")}</p>` : ""}
         </div>
       `).join('');
+    }
+
+    function toggleLoopsList() {
+      const list = document.getElementById('loopList');
+      list.style.display = list.style.display === 'block' ? 'none' : 'block';
     }
 
     function exportLog() {
